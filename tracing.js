@@ -12,8 +12,11 @@ const { MongoDBInstrumentation } = require("@opentelemetry/instrumentation-mongo
 const { HttpInstrumentation } = require("@opentelemetry/instrumentation-http");
 const { registerInstrumentations } = require("@opentelemetry/instrumentation");
 //Exporter
+const jaegerExporterOptions = {
+  serviceName: 'todo-service',
+}
+const exporter = new JaegerExporter(jaegerExporterOptions);
 module.exports = (serviceName) => {
-   const exporter = new JaegerExporter(options);
    const provider = new NodeTracerProvider({
        resource: new Resource({
            [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
